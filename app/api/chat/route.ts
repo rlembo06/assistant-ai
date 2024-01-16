@@ -1,13 +1,20 @@
 import { kv } from '@vercel/kv'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
+import MistralClient from '@mistralai/mistralai'
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 
 export const runtime = 'edge'
 
-const openai = new OpenAI({
+// For Mistral : https://sdk.vercel.ai/docs/guides/providers/mistral
+// Note: There are no types for the Mistral API client yet.
+// @ts-ignore
+const mistralClient = new MistralClient(process.env.MISTRAL_API_KEY || '')
+
+// SOON DEPRECATED
+const openaiClient = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 })
 
@@ -23,14 +30,22 @@ export async function POST(req: Request) {
   }
 
   if (previewToken) {
-    openai.apiKey = previewToken
+    openaiClient.apiKey = previewToken
   }
 
-  const res = await openai.chat.completions.create({
+  // SOON DEPRECATED
+  /* const res = await openaiClient.chat.completions.create({
     model: 'gpt-3.5-turbo',
     messages,
     temperature: 0.7,
     stream: true
+  }) */
+
+  const res = await mistralClient.chatStream({
+    model: 'mistral-tiny',
+    stream: true,
+    max_tokens: 1000,
+    messages
   })
 
   const stream = OpenAIStream(res, {
