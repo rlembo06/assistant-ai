@@ -21,13 +21,15 @@ const openaiClient = new OpenAI({
 export async function POST(req: Request) {
   const json = await req.json()
   const { messages, previewToken } = json
-  const userId = (await auth())?.user.id
+  const session = (await auth())
 
-  if (!userId) {
+  if (!session?.user.id) {
     return new Response('Unauthorized', {
       status: 401
     })
   }
+  
+  const { user: { id: userId } } = session
 
   if (previewToken) {
     openaiClient.apiKey = previewToken
