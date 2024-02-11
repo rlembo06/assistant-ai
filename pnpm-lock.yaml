@@ -104,6 +104,9 @@ dependencies:
   remark-math:
     specifier: ^5.1.1
     version: 5.1.1
+  zustand:
+    specifier: ^4.5.0
+    version: 4.5.0(@types/react@18.2.46)(react@18.2.0)
 
 devDependencies:
   '@tailwindcss/typography':
@@ -5495,6 +5498,26 @@ packages:
 
   /yoga-wasm-web@0.3.3:
     resolution: {integrity: sha512-N+d4UJSJbt/R3wqY7Coqs5pcV0aUj2j9IaQ3rNj9bVCLld8tTGKRa2USARjnvZJWVx1NDmQev8EknoczaOQDOA==}
+    dev: false
+
+  /zustand@4.5.0(@types/react@18.2.46)(react@18.2.0):
+    resolution: {integrity: sha512-zlVFqS5TQ21nwijjhJlx4f9iGrXSL0o/+Dpy4txAP22miJ8Ti6c1Ol1RLNN98BMib83lmDH/2KmLwaNXpjrO1A==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.2.46
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /zwitch@2.0.4:
