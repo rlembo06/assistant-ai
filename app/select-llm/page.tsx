@@ -21,15 +21,12 @@ export default function SelectLLM() {
     'ai-token',
     null
   )
-  const [previewTokenDialog, setPreviewTokenDialog] = useState(true)
-  const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
+  const [token, setToken] = useState(previewToken ?? '')
+
   return (
-    <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Enter your API Key</DialogTitle>
-        </DialogHeader>
-        <div className="mt-4">
+    <div className="flex items-center justify-center h-96">
+      <div className="bg-background rounded-md border min-w-80 shadow p-4 flex flex-col gap-4">
+        <div>
           <label
             htmlFor="select"
             className="block text-sm font-medium text-gray-700"
@@ -39,28 +36,19 @@ export default function SelectLLM() {
           <select
             id="select"
             name="select"
-            className="mt-1 block w-full p-2 border rounded-md"
+            className="mt-1 block w-full p-2 border rounded-md bg-background"
           >
             <option value="chatgpt">OpenAI</option>
             <option value="mistral">Mistral</option>
           </select>
         </div>
         <Input
-          value={previewTokenInput}
+          value={token}
           placeholder="API key"
-          onChange={e => setPreviewTokenInput(e.target.value)}
+          onChange={e => setToken(e.target.value)}
         />
-        <DialogFooter className="items-center">
-          <Button
-            onClick={() => {
-              setPreviewToken(previewTokenInput)
-              setPreviewTokenDialog(false)
-            }}
-          >
-            Save Token
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <Button onClick={() => {}}>Save Token</Button>
+      </div>
+    </div>
   )
 }
